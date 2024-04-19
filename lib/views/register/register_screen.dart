@@ -1,9 +1,9 @@
 import 'package:firebase_auth/provider/register/register_provider.dart';
 import 'package:firebase_auth/utils/colors.dart';
 import 'package:firebase_auth/utils/constants.dart';
-import 'package:firebase_auth/views/common_widgets/auth_app_bar.dart';
-import 'package:firebase_auth/views/common_widgets/custom_button.dart';
-import 'package:firebase_auth/views/common_widgets/custom_text_form_field.dart';
+import 'package:firebase_auth/views/commonWidgets/auth_app_bar.dart';
+import 'package:firebase_auth/views/commonWidgets/custom_button.dart';
+import 'package:firebase_auth/views/commonWidgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';

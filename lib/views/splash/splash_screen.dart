@@ -1,8 +1,33 @@
 import 'package:firebase_auth/utils/colors.dart';
+import 'package:firebase_auth/views/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  Future<void> gotoScreen(BuildContext context) async {
+    print('Splash Screen Open');
+    await Future.delayed(const Duration(milliseconds: 1500));
+    print('Registration Screen Open');
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: ((context) => LoginScreen()),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    gotoScreen(context);
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

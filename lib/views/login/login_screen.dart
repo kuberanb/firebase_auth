@@ -1,9 +1,11 @@
 import 'package:firebase_auth/provider/login/login_provider.dart';
 import 'package:firebase_auth/utils/colors.dart';
 import 'package:firebase_auth/utils/constants.dart';
-import 'package:firebase_auth/views/common_widgets/auth_app_bar.dart';
-import 'package:firebase_auth/views/common_widgets/custom_button.dart';
-import 'package:firebase_auth/views/common_widgets/custom_text_form_field.dart';
+import 'package:firebase_auth/views/bottomNavigation/custom_bottom_navigation_bar.dart';
+import 'package:firebase_auth/views/commonWidgets/auth_app_bar.dart';
+import 'package:firebase_auth/views/commonWidgets/custom_button.dart';
+import 'package:firebase_auth/views/commonWidgets/custom_text_form_field.dart';
+import 'package:firebase_auth/views/register/register_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -120,7 +122,12 @@ class LoginScreen extends StatelessWidget {
                                       height: 60,
                                       width: .4 * screenWidth,
                                       buttonText: "Sign In",
-                                      onClickFunction: () {}),
+                                      onClickFunction: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CustomBottomNavigationBar()));
+                                      }),
                                 ],
                               ),
                               kHeight5,
@@ -135,7 +142,12 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RegisterScreen()));
+                                    },
                                     child: const Text(
                                       "Sign up here",
                                       style: TextStyle(
