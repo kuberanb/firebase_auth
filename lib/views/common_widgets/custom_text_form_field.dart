@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
-  final double height;
+  final double? height;
   final double width;
   final bool isObscure;
   final TextInputType keyboardType;
@@ -14,7 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.controller,
-    required this.height,
+     this.height,
     required this.width,
     required this.isObscure,
     required this.validatorFunction,
@@ -24,14 +24,18 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
+     height: height,
       width: width,
       child: TextFormField(
         obscureText: isObscure,
         controller: controller,
+        // minLines: 0,
+        maxLines: 1,
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           filled: true,
+          hintMaxLines: 1,
+          // isDense: true,
           fillColor: Colors.transparent,
           hintText: hintText,
           hintStyle: const TextStyle(

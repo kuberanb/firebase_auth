@@ -2,6 +2,7 @@ import 'package:firebase_auth/provider/login/login_provider.dart';
 import 'package:firebase_auth/provider/register/register_provider.dart';
 import 'package:firebase_auth/utils/colors.dart';
 import 'package:firebase_auth/views/login/login_screen.dart';
+import 'package:firebase_auth/views/register/register_screen.dart';
 import 'package:firebase_auth/views/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,9 +40,8 @@ class MyApp extends StatelessWidget {
 
           useMaterial3: true,
         ),
-        home: LoginScreen(),
+        home: RegisterScreen(),
       ),
     );
   }
 }
-

@@ -20,3 +20,7 @@ const LinearGradient splashLinearGradient = LinearGradient(
     Color(0xFF000000),
   ],
 );
+
+// Register Screen
+
+ const kSignInButtonBackgroundColor = Color(0xFFF0F3F5);
