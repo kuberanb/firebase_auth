@@ -1,10 +1,7 @@
-import 'package:firebase_auth/provider/login/login_provider.dart';
-import 'package:firebase_auth/provider/register/register_provider.dart';
-import 'package:firebase_auth/utils/colors.dart';
-import 'package:firebase_auth/views/bottomNavigation/custom_bottom_navigation_bar.dart';
-import 'package:firebase_auth/views/login/login_screen.dart';
-import 'package:firebase_auth/views/register/register_screen.dart';
-import 'package:firebase_auth/views/splash/splash_screen.dart';
+import 'package:emcus/provider/login/login_provider.dart';
+import 'package:emcus/provider/register/register_provider.dart';
+import 'package:emcus/utils/colors.dart';
+import 'package:emcus/views/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

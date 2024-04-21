@@ -1,5 +1,5 @@
-import 'package:firebase_auth/utils/colors.dart';
-import 'package:firebase_auth/views/login/login_screen.dart';
+import 'package:emcus/utils/colors.dart';
+import 'package:emcus/views/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

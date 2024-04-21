@@ -1,4 +1,4 @@
-import 'package:firebase_auth/utils/colors.dart';
+import 'package:emcus/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

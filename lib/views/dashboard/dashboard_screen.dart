@@ -1,6 +1,6 @@
-import 'package:firebase_auth/utils/colors.dart';
-import 'package:firebase_auth/utils/constants.dart';
-import 'package:firebase_auth/views/commonWidgets/custom_appbar.dart';
+import 'package:emcus/utils/colors.dart';
+import 'package:emcus/utils/constants.dart';
+import 'package:emcus/views/commonWidgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardScreen extends StatelessWidget {

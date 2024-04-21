@@ -1,9 +1,9 @@
+import 'package:emcus/utils/colors.dart';
+import 'package:emcus/views/dashboard/dashboard_screen.dart';
+import 'package:emcus/views/diagnostics/diagnostics_screen.dart';
+import 'package:emcus/views/maintenance/maintenance_screen.dart';
+import 'package:emcus/views/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/utils/colors.dart';
-import 'package:firebase_auth/views/dashboard/dashboard_screen.dart';
-import 'package:firebase_auth/views/diagnostics/diagnostics_screen.dart';
-import 'package:firebase_auth/views/maintenance/maintenance_screen.dart';
-import 'package:firebase_auth/views/settings/settings_screen.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   @override
