@@ -2,10 +2,13 @@ import 'package:emcus/provider/login/login_provider.dart';
 import 'package:emcus/provider/register/register_provider.dart';
 import 'package:emcus/utils/colors.dart';
 import 'package:emcus/views/splash/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

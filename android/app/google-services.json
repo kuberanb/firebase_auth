@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "932410298500",
+    "project_id": "emcus-f3c05",
+    "storage_bucket": "emcus-f3c05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932410298500:android:dad6541c26b469a0ef32d1",
+        "android_client_info": {
+          "package_name": "com.emscustech.emcus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6C3-1_bTozjEdsoEdOj64_AS5cX_aOrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
