@@ -1,27 +1,29 @@
 import 'package:emcus/provider/register/register_provider.dart';
 import 'package:emcus/utils/colors.dart';
 import 'package:emcus/utils/constants.dart';
-import 'package:emcus/views/commonWidgets/auth_app_bar.dart';
 import 'package:emcus/views/commonWidgets/custom_button.dart';
 import 'package:emcus/views/commonWidgets/custom_text_form_field.dart';
+import 'package:emcus/views/commonWidgets/show_snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+  final VoidCallback toggle;
+  const RegisterScreen({
+    super.key,
+    required this.toggle,
+  });
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    final registerProvider = Provider.of<RegisterProvider>(context);
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      appBar: AuthAppBar(),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: screenWidth,
+    final registerProvider = Provider.of<RegisterProvider>(context,listen: false);
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: screenWidth,
+        child: Form(
+          key: registerProvider.formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -206,17 +208,51 @@ class RegisterScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomButton(
-                              buttonColor: kSignInButtonBackgroundColor,
-                              textColor: ktextFormFieldHeadingColor,
-                              height: 55,
-                              width: .35 * screenWidth,
-                              buttonText: "Cancel",
-                              onClickFunction: () {}),
+                            buttonColor: kSignInButtonBackgroundColor,
+                            textColor: ktextFormFieldHeadingColor,
+                            height: 55,
+                            width: .35 * screenWidth,
+                            buttonText: "Cancel",
+                            onClickFunction: () {
+                              toggle();
+                              // Navigator.of(context).pushAndRemoveUntil(
+                              //     MaterialPageRoute(
+                              //         builder: (context) => AuthScreen()),
+                              //     (route) => false);
+                            },
+                          ),
                           CustomButton(
-                              height: 55,
-                              width: .35 * screenWidth,
-                              buttonText: "Register",
-                              onClickFunction: () {}),
+                            height: 55,
+                            width: .35 * screenWidth,
+                            buttonText: "Register",
+                            onClickFunction: () async {
+                              if (registerProvider.formKey.currentState!
+                                  .validate()) {
+                                if (registerProvider.isChecked) {
+                                  if (registerProvider.passwordController.text
+                                          .trim() ==
+                                      registerProvider
+                                          .confirmPasswordController.text
+                                          .trim()) {
+                                    await registerProvider.signUp(
+                                        email: registerProvider
+                                            .emailController.text
+                                            .trim(),
+                                        password: registerProvider
+                                            .passwordController.text
+                                            .trim(),
+                                        context: context);
+                                  } else {
+                                    showSnackBar(context,
+                                        "confirm password is not same as password");
+                                  }
+                                } else {
+                                  showSnackBar(
+                                      context, "select remember me checkbox ");
+                                }
+                              }
+                            },
+                          ),
                         ],
                       ),
                       kHeight10,
@@ -245,6 +281,12 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+
+    // Scaffold(
+    //   backgroundColor: kBackgroundColor,
+    //   appBar: const AuthAppBar(),
+
+    // );
   }
 }
 
@@ -298,30 +340,34 @@ class SignUpRadioButton extends StatefulWidget {
 class _SignUpRadioButtonState extends State<SignUpRadioButton> {
   @override
   Widget build(BuildContext context) {
-    // final loginProvider = Provider.of<LoginPr>(context);
-    return InkWell(
-      onTap: () {
-        // setState(() {
-        //   _isChecked = !_isChecked;
-        // });
-      },
-      child: Container(
-        width: 20.0,
-        height: 20.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2.0),
-          border: Border.all(
-            color: ktextFormFieldBorderColor,
-            width: 1.0,
-          ),
-          color: Colors.transparent,
-        ),
-        child: const Icon(
-          Icons.check,
-          size: 16.0,
-          color: Colors.white,
-        ),
+    final registerProvider = Provider.of<RegisterProvider>(context);
+    return Checkbox(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      visualDensity: VisualDensity.compact,
+      checkColor: ktextFormFieldBorderColor,
+      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+        if (states.contains(MaterialState.selected)) {
+          return kWhiteColor;
+        }
+        return kWhiteColor; // Use default color
+      }),
+      side: MaterialStateBorderSide.resolveWith(
+        (states) =>
+            const BorderSide(width: 1.0, color: ktextFormFieldBorderColor),
       ),
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(
+          color: ktextFormFieldBorderColor, // Change the border color here
+        ),
+        borderRadius:
+            BorderRadius.circular(2), // Adjust border radius as needed
+      ),
+      value: registerProvider.isChecked,
+      onChanged: (value) {
+        if (value != null) {
+          registerProvider.setIsChecked(value);
+        }
+      },
     );
   }
 }

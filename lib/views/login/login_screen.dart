@@ -1,178 +1,184 @@
 import 'package:emcus/provider/login/login_provider.dart';
 import 'package:emcus/utils/colors.dart';
 import 'package:emcus/utils/constants.dart';
-import 'package:emcus/views/bottomNavigation/custom_bottom_navigation_bar.dart';
-import 'package:emcus/views/commonWidgets/auth_app_bar.dart';
 import 'package:emcus/views/commonWidgets/custom_button.dart';
 import 'package:emcus/views/commonWidgets/custom_text_form_field.dart';
 import 'package:emcus/views/register/register_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  VoidCallback toggle;
+  LoginScreen({
+    super.key,
+    required this.toggle,
+  });
 
-  TextEditingController emailController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    final loginProvider = Provider.of<LoginProvider>(context);
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      appBar: AuthAppBar(),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: screenHeight,
-          width: screenWidth,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Spacer(),
-              Container(
-                width: .9 * screenWidth,
-                height: .48 * screenHeight,
-                decoration: BoxDecoration(
-                  color: kWhiteColor,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(height: .03 * screenHeight),
-                    SignInText(),
-                    kHeight10,
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: Container(
-                        child: Form(
-                          key: loginProvider.formKey,
-                          child: Column(
-                            children: [
-                              const Row(
-                                children: [
-                                  TextFormFieldHeader(
-                                      headingText: "Email Address"),
-                                ],
-                              ),
-                              kHeight5,
-                              CustomTextFormField(
-                                hintText: "Enter your email address",
-                                controller: emailController,
-                                height: 42,
-                                width: .8 * screenWidth,
-                                isObscure: false,
-                                validatorFunction: (value) {
-                                  final emailRegex = RegExp(
-                                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                                  if (value == null || value.isEmpty) {
-                                    return "enter email address";
-                                  } else if (!emailRegex.hasMatch(value)) {
-                                    return "enter a valid email address";
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                              ),
-                              kHeight5,
-                              const Row(
-                                children: [
-                                  TextFormFieldHeader(headingText: "Password"),
-                                ],
-                              ),
-                              kHeight5,
-                              CustomTextFormField(
-                                hintText: "Enter your password",
-                                controller: emailController,
-                                height: 42,
-                                width: .8 * screenWidth,
-                                isObscure: true,
-                                validatorFunction: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "password cannot be empty";
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                              ),
-                              kHeight5,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  RememberMeRadioButton(),
-                                  kWidth5,
-                                  const Text(
-                                    "Remember Me",
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: screenHeight,
+        width: screenWidth,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Spacer(),
+            Container(
+              width: .9 * screenWidth,
+              height: .6 * screenHeight,
+              decoration: BoxDecoration(
+                color: kWhiteColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: .01 * screenHeight),
+                  const SignInText(),
+                  kHeight10,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20, left: 20),
+                    child: Container(
+                      child: Form(
+                        key: loginProvider.formKey,
+                        child: Column(
+                          children: [
+                            const Row(
+                              children: [
+                                TextFormFieldHeader(
+                                    headingText: "Email Address"),
+                              ],
+                            ),
+                            kHeight5,
+                            CustomTextFormField(
+                              hintText: "Enter your email address",
+                              controller: loginProvider.emailController,
+                              //  height: 42,
+                              width: .8 * screenWidth,
+                              isObscure: false,
+                              validatorFunction: (value) {
+                                final emailRegex =
+                                    RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                                if (value == null || value.isEmpty) {
+                                  return "enter email address";
+                                } else if (!emailRegex.hasMatch(value)) {
+                                  return "enter a valid email address";
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                            kHeight5,
+                            const Row(
+                              children: [
+                                TextFormFieldHeader(headingText: "Password"),
+                              ],
+                            ),
+                            kHeight5,
+                            CustomTextFormField(
+                              hintText: "Enter your password",
+                              controller: loginProvider.passwordController,
+                              //  height: 42,
+                              width: .8 * screenWidth,
+                              isObscure: true,
+                              validatorFunction: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "password cannot be empty";
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                            kHeight5,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                RememberMeRadioButton(),
+                                kWidth5,
+                                const Text(
+                                  "Remember Me",
+                                  style: TextStyle(
+                                    fontFamily: fontFamilName,
+                                    color: ktextFormFieldHeadingColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                            kHeight5,
+                            ForgotPasswordText(),
+                            kHeight5,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomButton(
+                                  height: 60,
+                                  width: .4 * screenWidth,
+                                  buttonText: "Sign In",
+                                  onClickFunction: () async {
+                                    if (loginProvider.formKey.currentState!
+                                        .validate()) {
+                                      await loginProvider.signIn(context);
+                                    }
+
+                                    // Navigator.of(context).push(
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             CustomBottomNavigationBar()));
+                                  },
+                                ),
+                              ],
+                            ),
+                            kHeight5,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  '''Don't have an account? ''',
+                                  style: TextStyle(
+                                    color: ktextFormFieldHeadingColor,
+                                    fontFamily: fontFamilName,
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    toggle();
+                                  },
+                                  child: const Text(
+                                    "Sign up here",
                                     style: TextStyle(
-                                      fontFamily: fontFamilName,
-                                      color: ktextFormFieldHeadingColor,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              kHeight5,
-                              ForgotPasswordText(),
-                              kHeight5,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CustomButton(
-                                      height: 60,
-                                      width: .4 * screenWidth,
-                                      buttonText: "Sign In",
-                                      onClickFunction: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CustomBottomNavigationBar()));
-                                      }),
-                                ],
-                              ),
-                              kHeight5,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    '''Don't have an account? ''',
-                                    style: TextStyle(
-                                      color: ktextFormFieldHeadingColor,
+                                      color: kMainColor,
                                       fontFamily: fontFamilName,
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  RegisterScreen()));
-                                    },
-                                    child: const Text(
-                                      "Sign up here",
-                                      style: TextStyle(
-                                        color: kMainColor,
-                                        fontFamily: fontFamilName,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              kHeight5,
-                            ],
-                          ),
+                                ),
+                              ],
+                            ),
+                            kHeight5,
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              kHeight120,
-            ],
-          ),
+            ),
+            kHeight120,
+          ],
         ),
       ),
     );
+
+    // Scaffold(
+    //   backgroundColor: kBackgroundColor,
+    //   appBar: AuthAppBar(),
+
+    // );
   }
 }
 
@@ -183,7 +189,7 @@ class ForgotPasswordText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
@@ -248,30 +254,38 @@ class RememberMeRadioButton extends StatefulWidget {
 class _RememberMeRadioButtonState extends State<RememberMeRadioButton> {
   @override
   Widget build(BuildContext context) {
-    // final loginProvider = Provider.of<LoginPr>(context);
-    return InkWell(
-      onTap: () {
-        // setState(() {
-        //   _isChecked = !_isChecked;
-        // });
-      },
-      child: Container(
-        width: 15.0,
-        height: 15.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2.0),
-          border: Border.all(
-            color: ktextFormFieldBorderColor,
-            width: 1.0,
-          ),
-          color: Colors.transparent,
-        ),
-        child: const Icon(
-          Icons.check,
-          size: 16.0,
-          color: Colors.white,
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    return Checkbox(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      visualDensity: VisualDensity.compact,
+      checkColor: ktextFormFieldBorderColor,
+      fillColor: MaterialStateProperty.resolveWith<Color>(
+        (states) {
+          if (states.contains(MaterialState.selected)) {
+            return kWhiteColor;
+          }
+          return kWhiteColor; // Use default color
+        },
+      ),
+      side: MaterialStateBorderSide.resolveWith(
+        (states) => const BorderSide(
+          width: 1.0,
+          color: ktextFormFieldBorderColor,
         ),
       ),
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(
+          color: ktextFormFieldBorderColor, // Change the border color here
+        ),
+        borderRadius:
+            BorderRadius.circular(2), // Adjust border radius as needed
+      ),
+      value: loginProvider.isChecked,
+      onChanged: (value) {
+        if (value != null) {
+          loginProvider.setIsChecked(value);
+        }
+      },
     );
   }
 }

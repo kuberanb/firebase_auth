@@ -1,5 +1,7 @@
 import 'package:emcus/utils/colors.dart';
+import 'package:emcus/views/auth/auth_screen.dart';
 import 'package:emcus/views/login/login_screen.dart';
+import 'package:emcus/views/main/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: ((context) => LoginScreen()),
+        builder: ((context) =>MainScreen()),
       ),
     );
   }
