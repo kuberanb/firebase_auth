@@ -1,5 +1,7 @@
 import 'package:emcus/views/auth/auth_screen.dart';
+import 'package:emcus/views/bottomNavigation/custom_bottom_navigation_bar.dart';
 import 'package:emcus/views/commonWidgets/show_snackbar.dart';
+import 'package:emcus/views/login/login_screen.dart';
 import 'package:emcus/views/main/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 class LoginProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
 
   // Radio Button
   bool _isChecked = false;
@@ -28,6 +30,10 @@ class LoginProvider extends ChangeNotifier {
       );
       if (userCredential.user != null) {
         showSnackBar(context, "Sign In Sucessfull");
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => CustomBottomNavigationBar()),
+            (route) => false);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -50,7 +56,7 @@ class LoginProvider extends ChangeNotifier {
         'Logout Sucessful',
       );
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => MainScreen()),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
           (route) => false);
     } on FirebaseAuthException catch (e) {
       print(e);
@@ -58,4 +64,3 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 }
-

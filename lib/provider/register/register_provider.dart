@@ -1,4 +1,5 @@
 import 'package:emcus/views/commonWidgets/show_snackbar.dart';
+import 'package:emcus/views/login/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class RegisterProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
 
   // Radio Button
   bool _isChecked = false;
@@ -28,10 +29,19 @@ class RegisterProvider extends ChangeNotifier {
     required BuildContext context,
   }) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential user =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      if (user.user != null) {
+        showSnackBar(context, "user registered sucessfully");
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+            (route) => false);
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         showSnackBar(context, 'The password provided is too weak.');

@@ -1,7 +1,9 @@
 import 'package:emcus/utils/colors.dart';
 import 'package:emcus/views/auth/auth_screen.dart';
+import 'package:emcus/views/bottomNavigation/custom_bottom_navigation_bar.dart';
 import 'package:emcus/views/login/login_screen.dart';
 import 'package:emcus/views/main/main_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,15 +15,31 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   Future<void> gotoScreen(BuildContext context) async {
-    print('Splash Screen Open');
-    await Future.delayed(const Duration(milliseconds: 1500));
-    print('Registration Screen Open');
-    // ignore: use_build_context_synchronously
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: ((context) =>MainScreen()),
-      ),
-    );
+    await Future.delayed(const Duration(seconds: 1));
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // If the user is logged in, navigate to HomeScreen
+
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(
+      //     builder: (context) => CustomBottomNavigationBar(),
+      //   ),
+      // );
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => CustomBottomNavigationBar()),
+          (route) => false);
+    } else {
+      // If the user is not logged in, navigate to LoginScreen
+
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(
+      //     builder: (context) => LoginScreen(),
+      //   ),
+      // );
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false);
+    }
   }
 
   @override
